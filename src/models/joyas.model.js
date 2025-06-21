@@ -49,3 +49,25 @@ export const getAllJoyasModel = async ({ limits, page, orderBy } = {}) => {
 
   return { stockTotal, joyas };
 };
+
+/**
+ * Recupera una joya específica de la base de datos por su ID.
+ *
+ * Esta función ejecuta una consulta SQL para seleccionar todas las columnas de la tabla `inventario`
+ * donde el campo `id` coincida con el valor proporcionado.
+ * Además, registra en el logger la consulta ejecutada para facilitar el seguimiento.
+ *
+ * @param {number|string} id - Identificador único de la joya.
+ * @returns {Promise<Array>} Array con la(s) fila(s) de la joya encontrada.
+ */
+export const getJoyaByIdModel = async (id) => {
+  const query = {
+    text: 'SELECT * FROM inventario WHERE id = $1',
+    values: [id],
+  };
+  logger.info(`Executed query: SELECT * FROM inventario WHERE id = ${id}`);
+
+  const { rows: results } = await pool.query(query);
+
+  return results;
+};

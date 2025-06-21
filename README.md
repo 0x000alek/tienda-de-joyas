@@ -104,8 +104,105 @@ tienda-de-joyas             # Carpeta raíz del proyecto
 ├── routes                  # Definición de rutas o endpoints de la API (configuración de Express)
 └── src
     ├── controllers         # Lógica que procesa peticiones y respuestas (controladores)
+    ├── helpers             # Funciones auxiliares reutilizables (helpers) para validaciones, formateo, parsers, etc.
     └── models              # Ejecución de consultas SQL y gestión de acceso a datos
 ```
+
+## 📡 Endpoints disponibles
+
+### `GET /joyas`
+
+Devuelve una lista paginada de joyas desde la base de datos.
+
+#### 🔸 Parámetros de consulta (query string)
+
+| Parámetro  | Tipo   | Descripción                                                                                       |
+| ---------- | ------ | ------------------------------------------------------------------------------------------------- |
+| `limits`   | number | (Opcional) Cantidad de resultados por página. Por defecto se usa `.env`                           |
+| `page`     | number | (Opcional) Número de página. Por defecto es 1                                                     |
+| `order_by` | string | (Opcional) Criterio de ordenamiento. Formato: `columna_ASC` o `columna_DESC`<br>Ej: `precio_DESC` |
+
+✅ Las columnas permitidas para `order_by` son: `id`, `nombre`, `categoria`, `metal`, `precio`, `stock`.
+
+#### 🛸 Ejemplo de solicitud
+
+```bash
+GET http://localhost:5000/joyas?limits=3&page=1&order_by=stock_ASC
+```
+
+#### 🆗 Ejemplo de respuesta
+
+```json
+{
+  "totalJoyas": 3,
+  "stockTotal": 6,
+  "results": [
+    {
+      "name": "Collar Heart",
+      "href": "http://localhost:5000/joyas/joya/1"
+    },
+    {
+      "name": "Anillo Cuarzo Greece",
+      "href": "http://localhost:5000/joyas/joya/6"
+    },
+    {
+      "name": "Aros Hook Blue",
+      "href": "http://localhost:5000/joyas/joya/4"
+    }
+  ]
+}
+```
+
+**📌 Notas**
+
+- El total de joyas (`stockTotal`) representa la cantidad total de joyas en la base de datos, sin paginar.
+- El total de joyas en la página (`totalJoyas`) corresponde al número de resultados en esa página.
+- Cada elemento en `results` incluye un `name` y un `href` que enlaza al detalle del recurso individual (`GET /joyas/joya/:id`).
+
+#### ⚠️ Posibles respuestas de error
+
+| Código | Motivo                     | Ejemplo de respuesta                   |
+| ------ | -------------------------- | -------------------------------------- |
+| 500    | Error interno del servidor | `{ "error": "Internal Server Error" }` |
+
+### `GET /joyas/joya/:id`
+
+Devuelve el detalle de una joya específica a través de su ID.
+
+#### 🔸 Parámetros de consulta
+
+| Parámetro | Tipo   | Descripción                                         |
+| --------- | ------ | --------------------------------------------------- |
+| `id`      | number | Identificador único de la joya en la base de datos. |
+
+#### 🛸 Ejemplo de solicitud
+
+```bash
+GET http://localhost:5000/joyas/joya/1
+```
+
+#### 🆗 Ejemplo de respuesta
+
+```json
+[
+  {
+    "id": 1,
+    "nombre": "Collar Heart",
+    "categoria": "collar",
+    "metal": "oro",
+    "precio": 20000,
+    "stock": 2
+  }
+]
+```
+
+#### ⚠️ Posibles respuestas de error
+
+| Código | Motivo                        | Ejemplo de respuesta                             |
+| ------ | ----------------------------- | ------------------------------------------------ |
+| 400    | ID inválido o faltante        | `{ "error": "Invalid or missing id parameter" }` |
+| 404    | Joya no encontrada con ese ID | `{ "error": "Joya not found" }`                  |
+| 500    | Error interno del servidor    | `{ "error": "Internal Server Error" }`           |
 
 ## 📦 Dependencias
 

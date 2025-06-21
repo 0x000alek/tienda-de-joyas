@@ -1,7 +1,7 @@
 import logger from '../../middlewares/logger.middlewares.js';
 
 import { HATEOAS } from '../helpers/hateoas.js';
-import { getAllJoyasModel } from '../models/joyas.model.js';
+import { getAllJoyasModel, getJoyaByIdModel } from '../models/joyas.model.js';
 
 /**
  * Controlador para obtener un listado de joyas con soporte de paginación, ordenamiento y respuesta en formato HATEOAS.
@@ -40,6 +40,36 @@ export const getAllJoyasController = async (req, res) => {
     res.status(200).json({ totalJoyas, stockTotal, results });
   } catch (error) {
     logger.error(`Error in getAllJoyasController: ${error.message}`);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+/**
+ * Controlador para obtener una joya específica por su ID.
+ *
+ * Extrae el parámetro `id` de la URL, llama al modelo para obtener la joya
+ * correspondiente, y responde con los datos en formato JSON.
+ * En caso de error, registra el problema y devuelve un error 500.
+ *
+ * @param {Request} req - Objeto de solicitud Express, se espera `req.params.id`.
+ * @param {Response} res - Objeto de respuesta Express para enviar resultados al cliente.
+ */
+export const getJoyaByIdController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!id || isNaN(Number(id))) {
+      return res.status(400).json({ error: 'Invalid or missing id parameter' });
+    }
+
+    const joya = await getJoyaByIdModel(id);
+    if (!joya) {
+      return res.status(404).json({ error: 'Joya not found' });
+    }
+    logger.info(`Joya fetched successfully: ${JSON.stringify(joya)}`);
+
+    res.status(200).json(joya);
+  } catch (error) {
+    logger.error(`Error in getJoyaByIdController: ${error.message}`);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };

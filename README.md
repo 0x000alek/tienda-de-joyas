@@ -224,3 +224,14 @@ GET http://localhost:5000/joyas/joya/1
 | eslint      | 9.29.0  | ![eslint](https://img.shields.io/badge/eslint-9.29.0-brightgreen)       | Herramienta principal para analizar y mantener consistente el estilo del código.      |
 | husky       | 8.0.0   | ![husky](https://img.shields.io/badge/husky-8.0.0-red)                  | Permite ejecutar hooks de Git (como validar commits o formatear antes de hacer push). |
 | prettier    | 3.5.3   | ![prettier](https://img.shields.io/badge/prettier-3.5.3-pink)           | Formateador de código automático para mantener un estilo consistente.                 |
+
+## 👥 Guía para el equipo
+
+Este proyecto sigue un flujo de trabajo y convenciones definidos por el equipo de desarrollo. Por favor, revisa la [Guía de Contribución](./CONTRIBUTING.md) para conocer:
+
+- Cómo crear ramas correctamente (`feature/`, `fix/`, `docs/`, etc.)
+- La convención para redactar mensajes de `commit`
+- El flujo sugerido para `Pull Requests` (PR)
+- Buenas prácticas de trabajo colaborativo
+
+📌 Este documento es exclusivo para uso interno del equipo de desarrollo.

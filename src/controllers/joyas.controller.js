@@ -1,7 +1,11 @@
 import logger from '../../middlewares/logger.middlewares.js';
 
 import { HATEOAS } from '../helpers/hateoas.js';
-import { getAllJoyasModel, getJoyaByIdModel, getJoyasFilterModel } from '../models/joyas.model.js';
+import {
+  getAllJoyasModel,
+  getJoyaByIdModel,
+  getJoyasFilterModel,
+} from '../models/joyas.model.js';
 
 /**
  * Controlador para obtener un listado de joyas con soporte de paginación, ordenamiento y respuesta en formato HATEOAS.

@@ -3,13 +3,13 @@ import { Router } from 'express';
 import {
   getAllJoyasController,
   getJoyaByIdController,
-  getJoyasFilterModel,
+  getJoyasFilterController,
 } from '../src/controllers/joyas.controller.js';
 
 const router = Router();
 
 router.get('/joyas', getAllJoyasController);
 router.get('/joyas/joya/:id', getJoyaByIdController);
-router.get('/joyas/filter', getJoyasFilterModel);
+router.get('/joyas/filtros', getJoyasFilterController);
 
 export default router;

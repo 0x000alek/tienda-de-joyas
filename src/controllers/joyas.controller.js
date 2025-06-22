@@ -1,6 +1,5 @@
 import logger from '../helpers/logger.js';
 import { HATEOAS } from '../helpers/hateoas.js';
-
 import {
   getAllJoyasModel,
   getJoyaByIdModel,

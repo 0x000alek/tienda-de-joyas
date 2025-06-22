@@ -208,13 +208,14 @@ GET http://localhost:5000/joyas/joya/1
 
 ### Producción
 
-| Dependencia | Versión | Badge                                                              | Descripción                                                                                                                                              |
-| ----------- | ------- | ------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| cors        | 2.8.5   | ![cors](https://img.shields.io/badge/cors-2.8.5-blue)              | Para habilitar el uso de **CORS** en el servidor. Se integra como un middleware en Express                                                               |
-| dotenv      | 16.5.0  | ![dotenv](https://img.shields.io/badge/dotenv-16.5.0-green)        | Para gestionar variables de entorno de forma sencilla mediante un archivo `.env`                                                                         |
-| express     | 5.1.0   | ![express](https://img.shields.io/badge/express-5.1.0-brightgreen) | Para facilitar la creación de servidores y APIs web. Proporciona una estructura clara para definir rutas, middlewares, controladores y manejo de errores |
-| pg          | 8.16.0  | ![pg](https://img.shields.io/badge/pg-8.16.0-yellow)               | Para conectarse a bases de datos PostgreSQL y ejecutar consultas SQL desde el servidor                                                                   |
-| winston     | ^3.17.0 | ![winston](https://img.shields.io/badge/winston-^3.17.0-lightgrey) | Para registrar logs del sistema con distintos niveles, formatos y destinos. Facilita el monitoreo y depuración del servidor                              |
+| Dependencia | Versión | Badge                                                                  | Descripción                                                                                                                                              |
+| ----------- | ------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| cors        | 2.8.5   | ![cors](https://img.shields.io/badge/cors-2.8.5-blue)                  | Para habilitar el uso de **CORS** en el servidor. Se integra como un middleware en Express                                                               |
+| dotenv      | 16.5.0  | ![dotenv](https://img.shields.io/badge/dotenv-16.5.0-green)            | Para gestionar variables de entorno de forma sencilla mediante un archivo `.env`                                                                         |
+| express     | 5.1.0   | ![express](https://img.shields.io/badge/express-5.1.0-brightgreen)     | Para facilitar la creación de servidores y APIs web. Proporciona una estructura clara para definir rutas, middlewares, controladores y manejo de errores |
+| pg          | 8.16.0  | ![pg](https://img.shields.io/badge/pg-8.16.0-yellow)                   | Para conectarse a bases de datos PostgreSQL y ejecutar consultas SQL desde el servidor                                                                   |
+| pg-format   | 1.0.4   | ![pg-format](https://img.shields.io/badge/pg--format-1.0.4-blueviolet) | Para formatear consultas SQL dinámicas de forma segura, evitando inyecciones y facilitando estructuras como listas o identificadores                     |
+| winston     | ^3.17.0 | ![winston](https://img.shields.io/badge/winston-^3.17.0-lightgrey)     | Para registrar logs del sistema con distintos niveles, formatos y destinos. Facilita el monitoreo y depuración del servidor                              |
 
 ### Desarrollo
 

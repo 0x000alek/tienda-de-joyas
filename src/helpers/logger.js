@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import winston from 'winston';
 
-import { config } from '../config/joyas.config.js';
+import { config } from '../../config/joyas.config.js';
 
 const { env } = config.server;
 
@@ -58,12 +58,12 @@ const logger = winston.createLogger({
   transports: [
     // - Escribe todos los registros con nivel de importancia `error` o superior en `error.log`
     new winston.transports.File({
-      filename: 'logs/error.log',
+      filename: path.join(logDir, 'error.log'),
       level: 'error',
     }),
     // - Escribe todos los registros con nivel de importancia `info` o superior en `combined.log`
     new winston.transports.File({
-      filename: 'logs/combined.log',
+      filename: path.join(logDir, 'combined.log'),
     }),
   ],
 });

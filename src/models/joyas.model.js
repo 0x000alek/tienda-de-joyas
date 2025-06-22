@@ -1,7 +1,8 @@
-import pool from '../../db/config.js';
-import logger from '../../middlewares/logger.middlewares.js';
-
 import { config } from '../../config/joyas.config.js';
+
+import pool from '../../db/config.js';
+
+import logger from '../helpers/logger.js';
 import { parseOrderBy } from '../helpers/parseOrderBy.js';
 
 /**

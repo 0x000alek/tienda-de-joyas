@@ -1,10 +1,10 @@
 import cors from 'cors';
 import express from 'express';
 
-import logger from './middlewares/logger.middlewares.js';
-import joyasRoutes from './routes/joyas.routes.js';
-
 import { config } from './config/joyas.config.js';
+
+import logger from './src/helpers/logger.js';
+import joyasRoutes from './routes/joyas.routes.js';
 
 const { protocol, host, port } = config.server;
 const serverUrl = `${protocol}://${host}:${port}`;

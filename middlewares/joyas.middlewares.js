@@ -53,11 +53,15 @@ const notFound = () => (req, res) => {
 };
 
 /**
- * Express error-handling middleware.
+ * Middleware de manejo de errores para Express.
  *
- * Logs the error message and stack trace, then sends a generic 500 response.
+ * Registra en el logger el mensaje y el stack trace del error recibido,
+ * y responde al cliente con un estado HTTP 500 y un mensaje genérico.
  *
- * @returns {ErrorRequestHandler} The error-handling middleware function.
+ * Este middleware debe ubicarse después de todas las rutas y middlewares
+ * para capturar errores no controlados durante el procesamiento de solicitudes.
+ *
+ * @returns {ErrorRequestHandler} Middleware para manejo de errores.
  */
 const errorHandler = () => (err, _req, res, _next) => {
   logger.error(`${err.message}\n${err.stack}`);

@@ -1,7 +1,11 @@
 import logger from '../helpers/logger.js';
 import { HATEOAS } from '../helpers/hateoas.js';
 
-import { getAllJoyasModel, getJoyaByIdModel } from '../models/joyas.model.js';
+import {
+  getAllJoyasModel,
+  getJoyaByIdModel,
+  getJoyasFilterModel,
+} from '../models/joyas.model.js';
 
 /**
  * Controlador para obtener un listado de joyas con soporte de paginación, ordenamiento y respuesta en formato HATEOAS.
@@ -70,6 +74,25 @@ export const getJoyaByIdController = async (req, res) => {
     res.status(200).json(joya);
   } catch (error) {
     logger.error(`Error in getJoyaByIdController: ${error.message}`);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+/**
+ * Controlador para obtener la información de manera parametrizada con filtros
+ *
+ * Este controlador extrae los parámetros opcionales desde la query string:
+ * - `precio_min`: filtra por cantidad mínima de dinero
+ * - `precio_max` : filtra por cantidad máxima de dinero
+ * - `categoría` : filtra por tipo de joya
+ * - `metal` : filtra por tipo de metal
+ */
+export const getJoyasFilterController = async (req, res) => {
+  try {
+    const joyas = await getJoyasFilterModel(req.query);
+    res.status(200).json(joyas);
+  } catch (error) {
+    logger.error(`Error in getJoyasFilterController: `, error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };

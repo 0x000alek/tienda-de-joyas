@@ -1,8 +1,8 @@
 import pg from 'pg';
 
-import logger from '../middlewares/logger.middlewares.js';
-
 import { config } from '../config/joyas.config.js';
+
+import logger from '../src/helpers/logger.js';
 
 const { db_host, db_port, db_user, db_password, db_database } = config.db;
 

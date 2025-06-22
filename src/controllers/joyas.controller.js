@@ -1,6 +1,6 @@
-import logger from '../../middlewares/logger.middlewares.js';
-
+import logger from '../helpers/logger.js';
 import { HATEOAS } from '../helpers/hateoas.js';
+
 import { getAllJoyasModel, getJoyaByIdModel } from '../models/joyas.model.js';
 
 /**

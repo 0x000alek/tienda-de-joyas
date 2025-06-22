@@ -82,25 +82,30 @@ export const getJoyaByIdModel = async (id) => {
  * 3) Categoría
  * 4) Metal
  */
-export const getJoyasFilterModel = async ({ precio_min, precio_max, categoria, metal }) => {
+export const getJoyasFilterModel = async ({
+  precio_min,
+  precio_max,
+  categoria,
+  metal,
+}) => {
   const filtros = [];
 
-  if(precio_min) {
+  if (precio_min) {
     filtros.push(format('precio >= %L', Number(precio_min)));
-  };
-  if(precio_max) {
+  }
+  if (precio_max) {
     filtros.push(format('precio <= %L', Number(precio_max)));
   }
-  if(categoria) {
+  if (categoria) {
     filtros.push(format('categoria = %L', categoria));
   }
-  if(metal) {
+  if (metal) {
     filtros.push(format('metal = %L', metal));
   }
 
   let consulta = 'SELECT * FROM inventario';
 
-  if(filtros.length > 0) {
+  if (filtros.length > 0) {
     consulta += ' WHERE ' + filtros.join(' AND ');
   }
 

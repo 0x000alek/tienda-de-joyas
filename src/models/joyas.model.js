@@ -1,3 +1,5 @@
+import format from 'pg-format';
+
 import { config } from '../../config/joyas.config.js';
 
 import pool from '../../db/config.js';
@@ -33,16 +35,15 @@ export const getAllJoyasModel = async ({ limits, page, orderBy } = {}) => {
     defaultOrderBy
   );
 
-  const queryCountAllJoyas = {
-    text: 'SELECT COUNT(*) FROM inventario',
-  };
-  const querySelectAllJoyasWithParams = {
-    text: `SELECT * FROM inventario ORDER BY ${orderByColumn} ${orderByDirection} LIMIT $1 OFFSET $2`,
-    values: [limit, offset],
-  };
-  logger.info(
-    `Executed query: SELECT * FROM inventario ORDER BY ${orderByColumn} ${orderByDirection} LIMIT ${limit} OFFSET ${offset}`
+  const queryCountAllJoyas = format('SELECT COUNT(*) FROM inventario');
+  const querySelectAllJoyasWithParams = format(
+    'SELECT * FROM inventario ORDER BY %s %s LIMIT %s OFFSET %s',
+    orderByColumn,
+    orderByDirection,
+    limit,
+    offset
   );
+  logger.info(`Executed query: ${querySelectAllJoyasWithParams}`);
 
   const { rows: countAllResult } = await pool.query(queryCountAllJoyas);
   const { rows: joyas } = await pool.query(querySelectAllJoyasWithParams);
@@ -62,11 +63,8 @@ export const getAllJoyasModel = async ({ limits, page, orderBy } = {}) => {
  * @returns {Promise<Array>} Array con la(s) fila(s) de la joya encontrada.
  */
 export const getJoyaByIdModel = async (id) => {
-  const query = {
-    text: 'SELECT * FROM inventario WHERE id = $1',
-    values: [id],
-  };
-  logger.info(`Executed query: SELECT * FROM inventario WHERE id = ${id}`);
+  const query = format('SELECT * FROM inventario WHERE id = %s', id);
+  logger.info(`Executed query: ${query}`);
 
   const { rows: results } = await pool.query(query);
 

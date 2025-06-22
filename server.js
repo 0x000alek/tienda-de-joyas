@@ -19,6 +19,7 @@ app.use(cors());
 app.use(joyasMiddlewares.log());
 
 app.use(joyasRoutes);
+app.use(joyasMiddlewares.notFound());
 
 app.use(joyasMiddlewares.errorHandler());
 

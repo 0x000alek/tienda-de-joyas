@@ -41,11 +41,27 @@ const log = () => (req, res, next) => {
 };
 
 /**
- * Express error-handling middleware.
+ * Middleware para rutas no encontradas (404).
  *
- * Logs the error message and stack trace, then sends a generic 500 response.
+ * Registra una advertencia y responde con JSON indicando ruta no encontrada.
  *
- * @returns {ErrorRequestHandler} The error-handling middleware function.
+ * @returns {RequestHandler}
+ */
+const notFound = () => (req, res) => {
+  logger.warn(`404 - Route not found - ${req.method} ${req.originalUrl}`);
+  res.status(404).json({ error: 'Route not found' });
+};
+
+/**
+ * Middleware de manejo de errores para Express.
+ *
+ * Registra en el logger el mensaje y el stack trace del error recibido,
+ * y responde al cliente con un estado HTTP 500 y un mensaje genérico.
+ *
+ * Este middleware debe ubicarse después de todas las rutas y middlewares
+ * para capturar errores no controlados durante el procesamiento de solicitudes.
+ *
+ * @returns {ErrorRequestHandler} Middleware para manejo de errores.
  */
 const errorHandler = () => (err, _req, res, _next) => {
   logger.error(`${err.message}\n${err.stack}`);
@@ -56,4 +72,4 @@ const errorHandler = () => (err, _req, res, _next) => {
   });
 };
 
-export default { log, errorHandler };
+export default { log, notFound, errorHandler };

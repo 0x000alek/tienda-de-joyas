@@ -1,5 +1,6 @@
 import pool from '../../db/config.js';
 import logger from '../../middlewares/logger.middlewares.js';
+import format from 'pg-format';
 
 import { config } from '../../config/joyas.config.js';
 import { parseOrderBy } from '../helpers/parseOrderBy.js';
@@ -70,4 +71,39 @@ export const getJoyaByIdModel = async (id) => {
   const { rows: results } = await pool.query(query);
 
   return results;
+};
+
+/**
+ * Recupera la base de datos parametrizada para evitar la SQL Injection
+ *
+ * Para no traer toda la información disponible de la tabla, podemos pasar 4 filtros diferentes por Query:
+ * 1) Precio mínimo
+ * 2) Precio máximo
+ * 3) Categoría
+ * 4) Metal
+ */
+export const getJoyasFilterModel = async ({ precio_min, precio_max, categoria, metal }) => {
+  const filtros = [];
+
+  if(precio_min) {
+    filtros.push(format('precio >= %L', Number(precio_min)));
+  };
+  if(precio_max) {
+    filtros.push(format('precio <= %L', Number(precio_max)));
+  }
+  if(categoria) {
+    filtros.push(format('categoria = %L', categoria));
+  }
+  if(metal) {
+    filtros.push(format('metal = %L', metal));
+  }
+
+  let consulta = 'SELECT * FROM inventario';
+
+  if(filtros.length > 0) {
+    consulta += ' WHERE ' + filtros.join(' AND ');
+  }
+
+  const result = await pool.query(consulta);
+  return result.rows;
 };

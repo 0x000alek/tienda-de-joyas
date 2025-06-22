@@ -41,6 +41,18 @@ const log = () => (req, res, next) => {
 };
 
 /**
+ * Middleware para rutas no encontradas (404).
+ *
+ * Registra una advertencia y responde con JSON indicando ruta no encontrada.
+ *
+ * @returns {RequestHandler}
+ */
+const notFound = () => (req, res) => {
+  logger.warn(`404 - Route not found - ${req.method} ${req.originalUrl}`);
+  res.status(404).json({ error: 'Route not found' });
+};
+
+/**
  * Express error-handling middleware.
  *
  * Logs the error message and stack trace, then sends a generic 500 response.
@@ -56,4 +68,4 @@ const errorHandler = () => (err, _req, res, _next) => {
   });
 };
 
-export default { log, errorHandler };
+export default { log, notFound, errorHandler };

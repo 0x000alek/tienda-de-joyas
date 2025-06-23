@@ -204,6 +204,48 @@ GET http://localhost:5000/joyas/joya/1
 | 404    | Joya no encontrada con ese ID | `{ "error": "Joya not found" }`                  |
 | 500    | Error interno del servidor    | `{ "error": "Internal Server Error" }`           |
 
+### `GET /joyas/filtros`
+
+Devuelve una lista de joyas filtradas según los parámetros de búsqueda enviados por query string.
+
+#### 🔸 Parámetros de consulta (query string)
+
+| Parámetro    | Tipo   | Descripción                                                               |
+| ------------ | ------ | ------------------------------------------------------------------------- |
+| `precio_min` | number | (Opcional) Precio mínimo para filtrar las joyas                           |
+| `precio_max` | number | (Opcional) Precio máximo para filtrar las joyas                           |
+| `categoria`  | string | (Opcional) Categoría de la joya (ej: `aros`, `collares`, `anillos`, etc.) |
+| `metal`      | string | (Opcional) Tipo de metal (ej: `oro`, `plata`, `acero`)                    |
+
+✅ Puedes combinar múltiples filtros en una sola solicitud.
+
+🛸 Ejemplo de solicitud
+
+```bash
+GET http://localhost:5000/joyas/filtros?precio_min=25000&precio_max=30000&categoria=aros&metal=plata
+```
+
+#### 🆗 Ejemplo de respuesta
+
+```json
+[
+  {
+    "id": 5,
+    "nombre": "Anillo Wish",
+    "categoria": "aros",
+    "metal": "plata",
+    "precio": 30000,
+    "stock": 4
+  }
+]
+```
+
+#### ⚠️ Posibles respuestas de error
+
+| Código | Motivo                     | Ejemplo de respuesta                   |
+| ------ | -------------------------- | -------------------------------------- |
+| 500    | Error interno del servidor | `{ "error": "Internal Server Error" }` |
+
 ## 📦 Dependencias
 
 ### Producción
